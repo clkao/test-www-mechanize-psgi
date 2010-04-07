@@ -19,8 +19,7 @@ sub new {
     delete $args{app};
     confess('Missing argument app') unless $app;
     confess('Argument app should be a code reference')
-        unless ref($app) && ref($app) eq 'CODE';
-
+        unless ref($app) && (ref($app) eq 'CODE' || $app->isa("Plack::Component"));
     my $self = $class->SUPER::new(%args);
     $self->{app} = $app;
     return $self;
